@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Ordenando</title>
+  <link rel="stylesheet" type="text/css" href="ordenando.css">
+  <script src="ordenando.js"></script>
+</head>
+<body>
+  <h1>Ordenando Valores</h1>  
+  <label for="valor">Valor</label>
+    </br>
+  <input type="number" id="valor">
+    </br></br>
+  <button onclick="add()">Adicionar</button>
+    <hr></hr>
+  <select id="algoritmo">
+    <option value="bubble">Bubble Sort</option>
+    <option value="selection">Selection Sort</option>
+    <option value="quick" selected>Quick Sort</option>
+  </select>
+    </br></br>
+  <button onclick="ordenar()">Ordenar</button>
+  <button onclick="misturar()">Misturar</button>
+    <hr></hr>
+  <ul id="valores"></ul>
+  
+  <script>
+    function add() {
+      const inputValue = document.getElementById('valor').value;
+      const lista = document.getElementById('valores');
+      const node = document.createElement('li');
+      node.appendChild(document.createTextNode(inputValue));
+      lista.appendChild(node);
+    }
+    
+    function ordenar() {
+      const listaValores = document.getElementById('valores').children;
+      const valores = Array.from(listaValores).map(item => parseInt(item.innerHTML));
+      const algoritmo = document.getElementById('algoritmo').value;
+      
+      if (algoritmo === 'bubble') {
+        bubble_sort(valores);
+      } else if (algoritmo === 'selection') {
+        selection_sort(valores);
+      } else if (algoritmo === 'quick') {
+        quick_sort(valores, 0, valores.length - 1);
+      }
+      
+      const lista = document.getElementById('valores');
+      lista.innerHTML = '';
+      
+      valores.forEach(valor => {
+        const node = document.createElement('li');
+        node.appendChild(document.createTextNode(valor));
+        lista.appendChild(node);
+      });
+    }
+    
+    function misturar() {
+      const listaValores = document.getElementById('valores').children;
+      const valores = Array.from(listaValores).map(item => parseInt(item.innerHTML));
+      shuffle(valores, valores.length * 2);
+      
+      const lista = document.getElementById('valores');
+      lista.innerHTML = '';
+      
+      valores.forEach(valor => {
+        const node = document.createElement('li');
+        node.appendChild(document.createTextNode(valor));
+        lista.appendChild(node);
+      });
+    }
+  </script>
+</body>
+</html>
